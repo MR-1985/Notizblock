@@ -1,0 +1,52 @@
+.button {
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.button:hover {
+    box-shadow: hsl(0, 19%, 53%);
+}
+
+.archiv_button {
+    cursor: pointer;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.archiv_button:hover {
+    box-shadow: hsl(0, 65%, 28%);
+}
+
+.delete {
+    background-color: rgb(172, 12, 87);
+}
+
+.back_to_notes {
+    background-color: rgb(6, 167, 60);
+}
+
+.archivate {
+    background-color: rgb(152, 202, 12);
+}
+
+.to_done {
+    background-color: rgb(153, 170, 161);
+}
+
+.color_archiv_button{
+    background-color: rgb(152, 202, 12);
+}
+
+.li {
+    margin-bottom: 20px;
+    color: #ff5700;
+}
+
+.moved_li {
+    text-decoration: line-through;
+    margin-bottom: 20px;
+}
+
+.deleted_li {
+    margin-bottom: 20px;
+}
