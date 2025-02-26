@@ -21,9 +21,11 @@ function hopToNextInput() {
     title = title.toUpperCase();
 
     if(title.length < 3){
-        titleRef.focus();
         alert('Titel muss mind 3 Zeichen haben!');
+        titleRef.value = "";
+        titleRef.focus();
         return;
+
     }else noteRef.focus();
 
 }
@@ -33,8 +35,8 @@ function hopToFirstInput() {
 let note = document.getElementById('input_note').value.trim();
 
     if(note.length < 3){
-        noteRef.focus();
         alert('Notiz muss mind 3 Zeichen haben!');
+        noteRef.focus();
         return;
     }else 
         titleRef.focus();
@@ -47,7 +49,16 @@ function saveNote() {
     title = title.toUpperCase();
     let note = document.getElementById('input_note').value.trim();
 
-    if (note.length < 3) {
+    if(title.length < 3){
+        alert('Titel muss mind 3 Zeichen haben!');
+        titleRef.value = "";
+        titleRef.focus();
+        return;
+
+    }if (note.length < 3) {
+        alert('Notiz muss mind 3 Zeichen haben!');
+        noteRef.value = "";
+        noteRef.focus();
         return;
     }else
         titles.push(title)

@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="./styles/standards.css">
     <link rel="stylesheet" href="./styles/components.css">
     <link rel="stylesheet" href="./styles/notes.css">
+    <link rel="stylesheet" href="./styles/scrollbar.css">
     <script src="./scripts/templates.js"></script>
 
 </head>
@@ -24,11 +25,12 @@
                 </div>
                 <div id="archivated_list">
                 </div>
-                <button class="button" onclick="toggleOverlay()">Zurück</button>
+                <button class="back_button" onclick="toggleOverlay()">Zurück</button>
             </div>
         </div>
     </div>
     <div class="second_body">
+
         <div class="content">
             <div class="center_h1">
                 <h1>Notizen</h1>
@@ -39,17 +41,25 @@
                 required title="write a Note" placeholder="what to do?...">
             <button id="save_note" onclick="saveNote()">Save the Note</button>
             <h3 class="color_to_do">To Do:</h3>
-            <div id="to_do_notes_title">
-            </div>
-            <div id="to_do_notes">
+            <div class="scroll">
+                <div id="to_do_notes_title">
+                </div>
+
+                <div id="to_do_notes">
+                </div>
             </div>
             <h3 class="color_done">Done:</h3>
-            <div id="done_titles">
-            </div>
-            <div id="done_notes">
+            <div class="scroll">
+                <div id="done_titles">
+                </div>
+                <div id="done_notes">
+                </div>
             </div>
             <button class="archiv_button color_archiv_button" onclick="toggleOverlay()">Archiv</button>
         </div>
+        
+    </div>
+
     </div>
     </div>
     <script src="./script.js"></script>

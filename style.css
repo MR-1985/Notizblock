@@ -2,9 +2,11 @@
     display: flex;
     height: 100vh;
     width: 100%;
-    padding-top: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     justify-content: center;
     background: linear-gradient(to top left, rgb(27, 173, 192), rgb(48 85 43));
+    overflow-y: auto;
 }
 
 .content {
@@ -12,12 +14,20 @@
     flex-direction: column;
     width: fit-content;
     text-align: start;
-    max-height: 70vh;
+    max-height: 96vh;
+    height: fit-content;
     border: groove 5px;
-    padding-inline: 20px;
-    padding-block: 20px;
-    border-radius: 20px;
+    padding-inline: 30px;
+    padding-block: 10px;
+    border-radius: 30px;
+    
+    
+}
+
+.scroll{
     overflow-y: auto;
+    max-height: 200px;
+    min-height: 0px;
 }
 
 
