@@ -8,45 +8,75 @@ archivatedNotes = [];
 deletedTitles = [];
 deletedNotes = [];
 
+let titleRef = document.getElementById('input_title');
+let noteRef = document.getElementById('input_note');
+let title = document.getElementById('input_title').value.trim();
+    title = title.toUpperCase();
+let note = document.getElementById('input_note').value.trim();
+
+
 function hopToNextInput() {
-    document.getElementById('input_note').focus();
+
+    let title = document.getElementById('input_title').value.trim();
+    title = title.toUpperCase();
+
+    if(title.length < 3){
+        titleRef.focus();
+        alert('Titel muss mind 3 Zeichen haben!');
+        return;
+    }else noteRef.focus();
+
 }
+
 function hopToFirstInput() {
-    document.getElementById('input_title').focus();
+
+let note = document.getElementById('input_note').value.trim();
+
+    if(note.length < 3){
+        noteRef.focus();
+        alert('Notiz muss mind 3 Zeichen haben!');
+        return;
+    }else 
+        titleRef.focus();
+        saveNote();
 }
 
 function saveNote() {
-    let givenNoteRef = document.getElementById('input_note');
-    let givenTitleRef = document.getElementById('input_title');
-    let givenNote = givenNoteRef.value.trim();
-    let givenTitle = givenTitleRef.value.trim();
-    givenTitle = givenTitle.toUpperCase();
-    if (givenNote.length < 3) {
-        alert('Ohne Eintrag geht das nicht');
-        return;
-    }
-    if (givenTitle.length < 3) {
-        alert('Ohne Eintrag geht das nicht');
-        return;
-    }
 
-    notes.push(givenNote);
-    titles.push(givenTitle);
+    let title = document.getElementById('input_title').value.trim();
+    title = title.toUpperCase();
+    let note = document.getElementById('input_note').value.trim();
 
-    renderNoteList()
-    givenNoteRef.value = "";
-    givenTitleRef.value = "";
+    if (note.length < 3) {
+        return;
+    }else
+        titles.push(title)
+        notes.push(note)
+        titleRef.value = "";
+        noteRef.value = "";
+        titleRef.focus()
+    
+
+    localStorage.setItem("titles", JSON.stringify(titles));
+    localStorage.setItem("notes", JSON.stringify(notes));
+
+    renderNotes()
+
+    console.log('Anzahl an Titeln und Notizen im To Do = ' + titles.length + ', im Done sind ' + doneTitles.length + ' und im Archiv ' + archivatedTitles.length + '. Im gelöschte Daten-Speicher, befinden sich momentan ' + deletedNotes.length + ' gelöschte Notizen. Sie werden ab 100 Stück unwiederbringlich gelöscht!');
+   
 }
-function renderNoteList() {
-    let titleList = document.getElementById('to_do_notes_title')
-    let noteList = document.getElementById('to_do_notes');
-    titleList.innerHTML = ""
-    noteList.innerHTML = "";
+
+function renderNotes() {
+    let titleListRef = document.getElementById('to_do_notes_title')
+    let noteListRef = document.getElementById('to_do_notes');
+    titleListRef.innerHTML = "";
+    noteListRef.innerHTML = "";
 
     for (let iOfNotes = 0; iOfNotes < notes.length; iOfNotes++) {
         const note = notes[iOfNotes];
         const title = titles[iOfNotes];
-        noteList.innerHTML += noteListTemplate(title, note, iOfNotes);
+
+        noteListRef.innerHTML += noteListTemplate(title, note, iOfNotes);
     }
 }
 
@@ -56,9 +86,16 @@ function moveNoteToDone(iOfNotes) {
     let toMoveTitle = titles.splice(iOfNotes, 1)[0];
     doneNotes.push(toMoveNote);
     doneTitles.push(toMoveTitle);
-    console.log('Anzahl an Titeln im To Do = ' + notes.length + ' und ' + doneTitles.length + ' im Done, während sich ' + archivatedTitles.length + ' Titel im Archiv befinden.');
-    console.log('Anzahl an Notizen im To Do = ' + titles.length + ' und ' + doneNotes.length + ' im Done, während sich ' + archivatedNotes.length + ' Notizen im Archiv befinden.');
-    renderNoteList();
+
+    localStorage.setItem("titles", JSON.stringify(titles));
+    localStorage.setItem("notes", JSON.stringify(notes));
+    localStorage.setItem("doneTitles", JSON.stringify(doneTitles));
+    localStorage.setItem("doneNotes", JSON.stringify(doneNotes));
+
+
+    console.log('Anzahl an Titeln und Notizen im To Do = ' + notes.length + ' und ' + doneTitles.length + ' im Done, während sich ' + archivatedTitles.length + ' Titel und Notizen im Archiv befinden. Im gelöschte Daten-Speicher, befinden sich momentan ' + deletedTitles.length + ' gelöschte Titel und Notizen. Sie werden ab 100 Stück unwiederbringlich gelöscht!');
+    
+    renderNotes();
     renderDoneNotes();
 }
 
@@ -81,11 +118,13 @@ function archivateNote(iOfDone) {
     archivatedTitles.push(toArchivateTitle);
     archivatedNotes.push(toArchivateNote);
 
+    localStorage.setItem("doneTitles", JSON.stringify(doneTitles));
+    localStorage.setItem("doneNotes", JSON.stringify(doneNotes));
     localStorage.setItem("archivatedTitles", JSON.stringify(archivatedTitles));
     localStorage.setItem("archivatedNotes", JSON.stringify(archivatedNotes));
 
-    console.log('Anzahl an Titel im Archiv = ' + archivatedTitles.length + ', im Done sind es ' + doneTitles.length + ' Titel ' + 'und ' + titles.length + ' Titel im To Do.');
-    console.log('Anzahl an Notizen im Archiv = ' + archivatedNotes.length + ', im Done sind es ' + doneNotes.length + ' Notizen ' + 'und ' + notes.length + ' Notizen im To Do.');
+    console.log('Anzahl an Titeln und Notizen im Archiv = ' + archivatedTitles.length + ', im Done sind es ' + doneTitles.length + ' Titel und Notizen ' + 'und ' + titles.length + ' Titel und Notizen im To Do. Im gelöschte Daten-Speicher, befinden sich momentan ' + deletedTitles.length + ' gelöschte Titel und Notizen. Sie werden ab 100 Stück unwiederbringlich gelöscht!');
+
     renderDoneNotes();
     renderArchivatedNotes();
 }
@@ -103,41 +142,71 @@ function renderArchivatedNotes() {
     }
 }
 function loadNotesFromStorage() {
+    titles = JSON.parse(localStorage.getItem("titles")) || [];
+    notes = JSON.parse(localStorage.getItem("notes")) || [];
+    doneTitles = JSON.parse(localStorage.getItem("doneTitles")) || [];
+    doneNotes = JSON.parse(localStorage.getItem("doneNotes")) || [];
     archivatedTitles = JSON.parse(localStorage.getItem("archivatedTitles")) || [];
-    archivatedNotes = JSON.parse(localStorage.getItem("archivatedNotes"));
-    renderArchivatedNotes() || [];
+    archivatedNotes = JSON.parse(localStorage.getItem("archivatedNotes")) || [];
+    deletedTitles = JSON.parse(localStorage.getItem("deletedTitles")) || [];
+    deletedNotes = JSON.parse(localStorage.getItem("deletedNotes")) || [];
+
+    renderNotes();
+    renderDoneNotes();
+    renderArchivatedNotes(); 
 }
 
 function moveNoteUpToToDo(indexArchivated) {
-    let movedUpTitle = archivatedTitles.splice(indexArchivated, 1);
-    titles.push(movedUpTitle);
-    let movedUpNote = archivatedNotes.splice(indexArchivated, 1);
-    notes.push(movedUpNote);
-    console.log('Anzahl an Titeln im To Do = ' + titles.length + ', im Done sind ' + doneTitles.length + ' und im Archiv ' + archivatedTitles.length + '.');
-    console.log('Anzahl an Notizen im To Do = ' + titles.length + ', im Done sind ' + doneNotes.length + ' und im Archiv ' + archivatedNotes.length + '.');
-    renderArchivatedNotes();
-    renderNoteList();
+    let movedUpTitle = archivatedTitles.splice(indexArchivated, 1)[0];
+
+    let movedUpNote = archivatedNotes.splice(indexArchivated, 1)[0];
+
+    if (movedUpTitle && movedUpNote) {
+        titles.push(movedUpTitle);
+        notes.push(movedUpNote);
+
+
+        localStorage.setItem("archivatedTitles", JSON.stringify(archivatedTitles));
+        localStorage.setItem("archivatedNotes", JSON.stringify(archivatedNotes));
+        localStorage.setItem("titles", JSON.stringify(titles));
+        localStorage.setItem("notes", JSON.stringify(notes));
+
+        console.log('Anzahl an Titeln und Notizen im To Do = ' + titles.length + ', im Done sind ' + doneTitles.length + ' und im Archiv ' + archivatedTitles.length + '. Im gelöschte Daten-Speicher, befinden sich momentan ' + deletedNotes.length + ' gelöschte Titel und Notizen. Sie werden ab 100 Stück unwiederbringlich gelöscht!');
+
+        renderArchivatedNotes();
+        renderNotes();
+    }
 }
 
 function deleteIt(indexArchivated) {
+
     let deletedTitle = archivatedTitles.splice(indexArchivated, 1)[0];
+    let deletedNote = archivatedNotes.splice(indexArchivated, 1)[0];
+
     deletedTitles.push(deletedTitle);
+    deletedNotes.push(deletedNote);
+
     localStorage.setItem("archivatedTitles", JSON.stringify(archivatedTitles));
-    if (deletedTitles.length > 0) {
-        deletedTitles.length = 0;
+    localStorage.setItem("archivatedNotes", JSON.stringify(archivatedNotes));
+    localStorage.setItem("deletedTitles", JSON.stringify(deletedTitles));
+    localStorage.setItem("deletedNotes", JSON.stringify(deletedNotes));
+
+
+    renderNotes();
+    renderArchivatedNotes();
+    console.log('Anzahl an Titeln und Notizen im Archiv = ' + archivatedNotes.length + ' im Done sind es ' + doneTitles.length + ' Titel und Notizen ' + 'und ' + titles.length + ' Titel und Notizen im To Do.');
+
+    if (deletedTitles.length === 100 && deletedNotes.length === 100) {
+        console.log('Es befanden sich 100 Titel und Notizen im Speicher. Der Speicher wurde nun geleert.');
+    } else if (deletedTitles.length === 0 && deletedNotes.length === 0) {
+        console.log('Der Speicher ist aktuell leer.');
+    } else {
+        console.log('Es befinden sich momentan ' + deletedTitles.length + ' zu löschende Titel und Notizen im Speicher. Unwiederbringlich gelöscht wird der Speicher ab 100 Titeln und Notizen!');
     }
 
-    let deletedNote = archivatedNotes.splice(indexArchivated, 1);
-    deletedNotes.push(deletedNote);
-    localStorage.setItem("archivatedNotes", JSON.stringify(archivatedNotes));
-    if (deletedNotes.length > 0) {
-        deletedNotes.length = 0;
-    }
-    console.log('Anzahl an Titeln im Archiv = ' + archivatedNotes.length + ' im Done sind es ' + doneTitles.length + ' Titel ' + 'und ' + titles.length + ' Titel im To Do.');
-    console.log('Anzahl an Notizen im Archiv = ' + archivatedNotes.length + ', im Done sind es ' + doneNotes.length + ' Notizen ' + 'und ' + notes.length + ' Notizen im To Do.');
-    renderArchivatedNotes();
-    renderNoteList();
+    checkAndClearLocalStorage();
 }
+
 
 function toggleOverlay() {
     let overlayRef = document.getElementById('overlay');
@@ -147,3 +216,13 @@ function toggleOverlay() {
 function eventProtection(event) {
     event.stopPropagation();
 }
+
+function checkAndClearLocalStorage() {
+    if (titles.length === 0 && notes.length === 0 && doneTitles.length === 0 && doneNotes.length === 0 && archivatedTitles.length === 0 && archivatedNotes.length === 0 && deletedTitles.length === 100 && deletedNotes.length === 100)
+    {
+
+        localStorage.clear();
+        console.log('Alle Listen sind leer. Local Storage wurde gelöscht.');
+    }
+}
+

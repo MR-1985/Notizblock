@@ -35,7 +35,7 @@
             </div>
             <input onkeydown="if(event.key==='Enter') hopToNextInput()" id="input_title" type="text" required
                 title="write a Title" placeholder="place a title">
-            <input onkeydown="if(event.key==='Enter') saveNote(), hopToFirstInput()" id="input_note" type="text"
+            <input onkeydown="if(event.key==='Enter') hopToFirstInput(), saveNote() " id="input_note" type="text"
                 required title="write a Note" placeholder="what to do?...">
             <button id="save_note" onclick="saveNote()">Save the Note</button>
             <h3 class="color_to_do">To Do:</h3>
