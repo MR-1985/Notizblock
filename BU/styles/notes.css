@@ -1,0 +1,16 @@
+#input_note{
+    height: 30px;
+    border-radius: 5px;
+}
+#input_title{
+    height: 30px;
+    border-radius: 5px;
+}
+#save_note{
+    cursor: pointer;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+#save_note:hover{
+    box-shadow:hsl(0, 65%, 28%);
+}
