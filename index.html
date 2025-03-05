@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/icons/favicon-32x32.png">
+    <title>Notizblock</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./styles/standards.css">
+    <link rel="stylesheet" href="./styles/components.css">
+    <link rel="stylesheet" href="./styles/notes.css">
+    <link rel="stylesheet" href="./styles/scrollbar.css">
+    <script src="./scripts/templates.js"></script>
+
+</head>
+
+<body onload="loadNotesFromStorage()">
+    <div id="overlay" onclick="toggleOverlay()" class="d_none">
+        <div class="flex_the_showen_window">
+            <div class="showen_window_class" id="showen_window" onclick="eventProtection(event)">
+                <h2>Archivierte Notizen</h2>
+                <div id="archivated_title">
+                </div>
+                <div id="archivated_list">
+                </div>
+                <button class="back_button" onclick="toggleOverlay()">Zurück</button>
+            </div>
+        </div>
+    </div>
+    <div class="second_body">
+
+        <div class="content">
+            <div class="center_h1">
+                <h1>Notizen</h1>
+            </div>
+            <input onkeydown="if(event.key==='Enter') hopToNextInput()" id="input_title" type="text" required
+                title="write a Title" placeholder="place a title">
+            <input onkeydown="if(event.key==='Enter') hopToFirstInput()" id="input_note" type="text"
+                required title="write a Note" placeholder="what to do?...">
+            <button id="save_note" onclick="saveNote()">Save the Note</button>
+            <h3 class="color_to_do">To Do:</h3>
+            <div class="scroll">
+                <div id="to_do_notes_title">
+                </div>
+
+                <div id="to_do_notes">
+                </div>
+            </div>
+            <h3 class="color_done">Done:</h3>
+            <div class="scroll">
+                <div id="done_titles">
+                </div>
+                <div id="done_notes">
+                </div>
+            </div>
+            <button class="archiv_button color_archiv_button" onclick="toggleOverlay()">Archiv</button>
+        </div>
+        
+    </div>
+
+    </div>
+    </div>
+    <script src="./script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,124 @@
+.second_body {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    justify-content: center;
+    background: linear-gradient(to top left, rgb(27, 173, 192), rgb(48 85 43));
+    overflow-y: auto;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    text-align: start;
+    max-height: 96vh;
+    height: fit-content;
+    border: groove 5px;
+    padding-inline: 30px;
+    padding-block: 10px;
+    border-radius: 30px;
+    
+    
+}
+
+.scroll{
+    overflow-y: auto;
+    max-height: 200px;
+    min-height: 0px;
+}
+
+
+.center_h1 {
+    display: flex;
+    justify-content: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+h2 {
+    margin-top: 30px;
+}
+
+h3 {
+    margin-bottom: 20px;
+    font-size: 28px;
+}
+
+h5{
+    margin-bottom: 5px;
+}
+
+.title_color {
+    color: #ff981e;
+}
+
+.color_to_do {
+    color: rgb(6, 167, 60);
+}
+
+.color_done {
+    color: rgb(153, 170, 161);
+}
+
+#overlay {
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(to top left, rgb(71, 133, 62), rgb(27, 173, 192));
+    position: fixed;
+    top: 0;
+    justify-content: center;
+    margin-inline: auto;
+
+}
+
+.d_none {
+    display: none;
+}
+
+#showen_window {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    min-width: 315px;
+    height: 70vh;
+    border: solid 4px wheat;
+    border-radius: 25px;
+    border-style: groove;
+    border-color: aquamarine;
+    margin-top: 50px;
+    align-items: center;
+    background-color: rgb(0, 0, 0);
+    color: white;
+    font-size: 20px;
+    padding-inline: 20px;
+}
+
+.flex_the_showen_window {
+    display: flex;
+    justify-self: center;
+    justify-content: center;
+    width: 600px;
+    min-width: 318px;
+
+}
+
+@media(max-width: 624px) {
+    .flex_the_showen_window {
+        display: flex;
+        justify-self: center;
+        width: 450px;
+    }
+}
+
+@media(max-width: 470px) {
+    .flex_the_showen_window {
+        display: flex;
+        justify-self: center;
+        width: 318px;
+    }
+}

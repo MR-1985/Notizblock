@@ -1,0 +1,86 @@
+.button {
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.back_button{
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+.back_button:hover{
+    box-shadow: hsl(0, 19%, 53%);
+}
+
+.button:hover {
+    box-shadow: hsl(0, 19%, 53%);
+}
+
+.archiv_button {
+    cursor: pointer;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    margin-top: 20px
+}
+
+.archiv_button:hover {
+    box-shadow: hsl(0, 65%, 28%);
+}
+
+.delete {
+    background-color: rgb(172, 12, 87);
+    cursor: pointer;
+}
+
+.back_to_notes {
+    background-color: rgb(6, 167, 60);
+    margin-left: 20px;
+}
+
+.archivate {
+    background-color: rgb(152, 202, 12);
+    margin-left: 20px;
+}
+
+.to_done {
+    background-color: rgb(153, 170, 161);
+    margin-left: 20px;
+}
+
+.color_archiv_button{
+    background-color: rgb(152, 202, 12);
+}
+
+ul{
+    margin: 0px;
+    padding: 0px;
+}
+
+.li {
+    margin-bottom: 20px;
+    color: #ff5700;
+    display: flex;
+    justify-content: space-between;
+}
+
+.moved_li {
+    text-decoration: line-through;
+    color: #864422;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+#archivated_list {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    overflow-y: auto;
+    max-height: 60vh;
+    padding-right: 20px;
+}
+
+.deleted_li {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+}
